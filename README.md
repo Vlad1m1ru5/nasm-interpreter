@@ -7,7 +7,9 @@
 
 ## Install
 
-```sh npm i```
+```sh
+npm i
+```
 
 ### Start
 
