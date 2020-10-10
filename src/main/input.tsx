@@ -1,7 +1,7 @@
 import { css } from "@emotion/core";
 import React from "react";
 
-type Props = {
+interface Props {
   userInput: string;
   saveInput: () => {};
 };
@@ -20,8 +20,14 @@ const Input: React.FunctionComponent<Props> = ({ userInput, saveInput }) => (
 
 export default Input;
 
-const inputCss = css``;
+const inputCss = css`
+  flex-grow: 1;
+`;
 
 const textAreaCss = css`
   resize: none;
+  font-size: inherit;
+  font-family: inherit;
+  width: 100%;
+  height: 100%;
 `;

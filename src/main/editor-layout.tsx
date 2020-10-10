@@ -10,4 +10,8 @@ const EditorLayout: React.FunctionComponent = ({ children }) => (
 
 export default EditorLayout;
 
-const editorLayoutCss = css``;
+const editorLayoutCss = css`
+  width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+`;
