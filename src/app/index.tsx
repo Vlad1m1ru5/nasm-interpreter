@@ -1,14 +1,14 @@
-import { css, Global } from '@emotion/core';
+import { css, Global } from '@emotion/core'
 import React, { useState } from 'react'
 
 const App: React.FunctionComponent = () => {
 
-  const [asmCode, setAsmCode] = useState("");
+  const [asmCode, setAsmCode] = useState('')
 
   const asmCodeOnChange = ({ target }:  React.ChangeEvent<HTMLTextAreaElement>) => {
-    const asmCode = target.value;
+    const asmCode = target.value
 
-    setAsmCode((asmCurrentCode) => asmCode);
+    setAsmCode((asmCurrentCode) => asmCode)
   }
 
   return (
@@ -18,7 +18,7 @@ const App: React.FunctionComponent = () => {
         onChange={asmCodeOnChange} 
         placeholder='Код ассемблера...' 
       />
-        <Global styles={globalCss}/>
+      <Global styles={globalCss}/>
     </>
   )
 }
