@@ -27,7 +27,7 @@ const App: React.FunctionComponent = () => {
       </div>
       {isUsingStackMachine && (
         <React.Suspense fallback='Подождите, выполняется интерпретация кода...'>
-          {asmCode.length && (
+          {!!asmCode.length && (
             <StackMachine code={asmCode}/>
           ) || (
             <div>
