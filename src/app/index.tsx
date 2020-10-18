@@ -32,6 +32,11 @@ const textAreaCss = css`
 `
 
 const globalCss = css`
+  html {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+  }
+
   body {
     margin: 0;
     height: 100vh;
