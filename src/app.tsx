@@ -27,7 +27,13 @@ const App: React.FunctionComponent = () => {
       </div>
       {isUsingStackMachine && (
         <React.Suspense fallback='Подождите, выполняется интерпретация кода...'>
-          <StackMachine code={asmCode}/>
+          {asmCode.length && (
+            <StackMachine code={asmCode}/>
+          ) || (
+            <div>
+              <span>Не удалось обнаружить код!</span>
+            </div>
+          )}
         </React.Suspense>
       )}
       <Global styles={globalCss}/>

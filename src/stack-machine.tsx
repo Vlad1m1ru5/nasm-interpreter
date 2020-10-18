@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import StringList from 'component/string-list'
+import HarvardArchitectureComputer from 'harvard-architecture-computer'
 
 interface Props {
   code: string
@@ -22,7 +23,7 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
   }, [code])
 
   const handleDoStepButtonClick = () => {
-    harvardArchitectureComputer.executeNextCommand()
+    harvardArchitectureComputer.next()
     setCurrentCommandNumber(currentCommandNumber => currentCommandNumber++)
   }
 
