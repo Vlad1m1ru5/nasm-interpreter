@@ -1,6 +1,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
+const srcRelativePath = "./src";
 const mode = process.env.NODE_ENV;
 const isDevMode = mode === "development";
 const devtool = isDevMode ? "inline-source-map" : "source-map";
@@ -14,7 +15,7 @@ module.exports = {
     open: true
   },
   entry: {
-    "index": path.resolve("./src")
+    "index": path.resolve(srcRelativePath)
   },
   output: {
     path: path.resolve(__dirname, "dist")
@@ -29,15 +30,16 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "app": path.resolve(__dirname, "./src/app"),
-      "component": path.resolve(__dirname, "./src/component"),
-      "stack-machine": path.resolve(__dirname, "./src/stack-machine")
+      "app": path.resolve(__dirname, `${srcRelativePath}/app`),
+      "component": path.resolve(__dirname, `${srcRelativePath}/component`),
+      "harvard-architecture-computer": path.resolve(__dirname, `${srcRelativePath}/harvard-architecture-computer`),
+      "stack-machine": path.resolve(__dirname, `${srcRelativePath}/stack-machine`)
     },
     extensions: [".ts", ".tsx", ".js", ".json", ".jsx", ".css"]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src/index.html")
+      template: path.resolve(__dirname, `${srcRelativePath}/index.html`)
     })
   ]
 };
