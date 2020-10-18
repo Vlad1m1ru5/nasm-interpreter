@@ -29,7 +29,9 @@ module.exports = {
   },
   resolve: {
     alias: {
-      "app": path.resolve(__dirname, "./src/app")
+      "app": path.resolve(__dirname, "./src/app"),
+      "component": path.resolve(__dirname, "./src/component"),
+      "stack-machine": path.resolve(__dirname, "./src/stack-machine")
     },
     extensions: [".ts", ".tsx", ".js", ".json", ".jsx", ".css"]
   },
