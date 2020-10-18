@@ -8,19 +8,11 @@ const App: React.FunctionComponent = () => {
   const [asmCode, setAsmCode] = useState('')
   const [isUsingStackMachine, setIsInitStackMachine] = useState(false)
 
-  const handleAsmCodeTextAreaChange = ({ target }:  React.ChangeEvent<HTMLTextAreaElement>) => {
-    const asmCode = target.value
+  const handleAsmCodeTextAreaChange = ({ target }:  React.ChangeEvent<HTMLTextAreaElement>) => setAsmCode(target.value)
 
-    setAsmCode(asmCode)
-  }
+  const handleExecuteButtonClick = () => setIsInitStackMachine(true)
 
-  const handleExecuteButtonClick = () => {
-    setIsInitStackMachine(true)
-  }
-
-  const handleTerminateButtonClick = () => {
-    setIsInitStackMachine(false)
-  }
+  const handleTerminateButtonClick = () => setIsInitStackMachine(false)
 
   return (
     <>
