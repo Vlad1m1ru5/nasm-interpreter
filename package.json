@@ -1,5 +1,5 @@
 {
-  "name": "nasm-interpreter",
+  "name": "asm-interpreter",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

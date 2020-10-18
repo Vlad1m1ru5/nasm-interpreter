@@ -13,6 +13,9 @@ module.exports = {
     contentBase: path.join(__dirname, "dist"),
     open: true
   },
+  entry: {
+    "index": path.resolve("./src")
+  },
   output: {
     path: path.resolve(__dirname, "dist")
   },
