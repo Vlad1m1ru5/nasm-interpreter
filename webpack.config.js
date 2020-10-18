@@ -10,7 +10,8 @@ module.exports = {
   devtool,
   devServer: {
     port: 9000,
-    contentBase: path.join(__dirname, "dist")
+    contentBase: path.join(__dirname, "dist"),
+    open: true
   },
   output: {
     path: path.resolve(__dirname, "dist")
@@ -24,6 +25,9 @@ module.exports = {
     ]
   },
   resolve: {
+    alias: {
+      "app": path.resolve(__dirname, "./src/app")
+    },
     extensions: [".ts", ".tsx", ".js", ".json", ".jsx", ".css"]
   },
   plugins: [
