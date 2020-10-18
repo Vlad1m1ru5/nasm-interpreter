@@ -6,7 +6,7 @@ const StackMachine = React.lazy(() => import('stack-machine'))
 const App: React.FunctionComponent = () => {
 
   const [asmCode, setAsmCode] = useState('')
-  const [isInitStackMachine, setIsInitStackMachine] = useState(false)
+  const [isUsingStackMachine, setIsInitStackMachine] = useState(false)
 
   const handleAsmCodeTextAreaChange = ({ target }:  React.ChangeEvent<HTMLTextAreaElement>) => {
     const asmCode = target.value
@@ -33,7 +33,7 @@ const App: React.FunctionComponent = () => {
         <button onClick={handleExecuteButtonClick}>Выполнить</button>
         <button onClick={handleTerminateButtonClick}>Прекратить</button>
       </div>
-      {isInitStackMachine && (
+      {isUsingStackMachine && (
         <React.Suspense fallback='Подождите, выполняется интерпретация кода...'>
           <StackMachine code={asmCode}/>
         </React.Suspense>
