@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import StringList from 'component/string-list'
-import HarvardArchitectureComputer from 'harvard-architecture-computer'
+import Program from 'program'
 
 interface Props {
   code: string
@@ -10,7 +10,7 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
   const [commands, setCommands] = useState<string[]>([])
   const [currentCommandNumber, setCurrentCommandNumber] = useState(0)
-  const [harvardArchitectureComputer, setHarvardArchitectureComputer] = useState(new HarvardArchitectureComputer([]))
+  const [program, setProgram] = useState(new Program([]))
 
   useEffect(() => {
     const commands = code
@@ -19,11 +19,11 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
     setCommands(commands)
     setCurrentCommandNumber(0)
-    setHarvardArchitectureComputer(new HarvardArchitectureComputer(commands))
+    setProgram(new Program(commands))
   }, [code])
 
   const handleDoStepButtonClick = () => {
-    harvardArchitectureComputer.next()
+    program.next()
     setCurrentCommandNumber(currentCommandNumber => currentCommandNumber++)
   }
 
@@ -31,8 +31,8 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
     <div>
       <div>Шаг {currentCommandNumber} из {commands.length}</div>
       <button onClick={handleDoStepButtonClick}>Сделать шаг</button>
-      <StringList items={harvardArchitectureComputer.data()}/>
-      <StringList items={harvardArchitectureComputer.instructions()}/>
+      <StringList items={program.data()}/>
+      <StringList items={program.instructions()}/>
     </div>
   )
 }
