@@ -1,6 +1,7 @@
+import { css } from '@emotion/core'
+import Program from 'program'
 import React, { useEffect, useState } from 'react'
 import StringList from 'component/string-list'
-import Program from 'program'
 
 interface Props {
   code: string
@@ -31,10 +32,17 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
     <div>
       <div>Шаг {currentCommandNumber} из {commands.length}</div>
       <button onClick={handleDoStepButtonClick}>Сделать шаг</button>
-      <StringList items={program.data()}/>
-      <StringList items={program.instructions()}/>
+      <div css={listsContainerCss}>
+        <StringList items={program.data()}/>
+        <StringList items={program.instructions()}/>
+      </div>
     </div>
   )
 }
 
 export default StackMachine
+
+const listsContainerCss = css`
+  display: flex;
+  justify-content: space-evenly;
+`
