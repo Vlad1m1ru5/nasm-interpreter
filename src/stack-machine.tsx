@@ -32,7 +32,7 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
     <div>
       <div>Шаг {currentCommandNumber} из {commands.length}</div>
       <button onClick={handleDoStepButtonClick}>Сделать шаг</button>
-      <div css={listsContainerCss}>
+      <div css={listsWrapperCss}>
         <StringList items={program.data()}/>
         <StringList items={program.instructions()}/>
       </div>
@@ -42,7 +42,7 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
 export default StackMachine
 
-const listsContainerCss = css`
+const listsWrapperCss = css`
   display: flex;
   justify-content: space-evenly;
 `
