@@ -9,7 +9,6 @@ interface Props {
 
 const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
-  const [commands, setCommands] = useState<string[]>([])
   const [currentCommandNumber, setCurrentCommandNumber] = useState(0)
   const [program, setProgram] = useState(new ProgramImpl([]))
 
@@ -18,7 +17,6 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
       .split('\n')
       .filter(isCommand => isCommand)
 
-    setCommands(commands)
     setCurrentCommandNumber(0)
     setProgram(new ProgramImpl(commands))
   }, [code])
