@@ -22,18 +22,12 @@ const App: React.FunctionComponent = () => {
         placeholder='Код ассемблера...' 
       />
       <div>
-        <button onClick={handleExecuteButtonClick}>Выполнить</button>
+        <button onClick={handleExecuteButtonClick} disabled={!asmCode.length}>Выполнить</button>
         <button onClick={handleTerminateButtonClick}>Прекратить</button>
       </div>
       {isUsingStackMachine && (
         <React.Suspense fallback='Подождите, выполняется интерпретация кода...'>
-          {!!asmCode.length && (
-            <StackMachine code={asmCode}/>
-          ) || (
-            <div>
-              <span>Не удалось обнаружить код!</span>
-            </div>
-          )}
+          <StackMachine code={asmCode}/>
         </React.Suspense>
       )}
       <Global styles={globalCss}/>

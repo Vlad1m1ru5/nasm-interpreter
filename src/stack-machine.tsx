@@ -1,5 +1,5 @@
 import { css } from '@emotion/core'
-import Program from 'program'
+import ProgramImpl from 'program'
 import React, { useEffect, useState } from 'react'
 import StringList from 'component/string-list'
 
@@ -11,7 +11,7 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
   const [commands, setCommands] = useState<string[]>([])
   const [currentCommandNumber, setCurrentCommandNumber] = useState(0)
-  const [program, setProgram] = useState(new Program([]))
+  const [program, setProgram] = useState(new ProgramImpl([]))
 
   useEffect(() => {
     const commands = code
@@ -20,17 +20,19 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
     setCommands(commands)
     setCurrentCommandNumber(0)
-    setProgram(new Program(commands))
+    setProgram(new ProgramImpl(commands))
   }, [code])
 
   const handleDoStepButtonClick = () => {
-    program.next()
-    setCurrentCommandNumber(currentCommandNumber => currentCommandNumber++)
+    if (program.hasNext()) {
+      program.next()
+      setCurrentCommandNumber(currentCommandNumber + 1)
+    }
   }
 
   return (
     <div>
-      <div>Шаг {currentCommandNumber} из {commands.length}</div>
+      <div>Сделано шагов: {currentCommandNumber}</div>
       <button onClick={handleDoStepButtonClick}>Сделать шаг</button>
       <div css={listsWrapperCss}>
         <StringList items={program.data()}/>

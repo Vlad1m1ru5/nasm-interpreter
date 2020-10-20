@@ -1,11 +1,11 @@
-interface IProgram {
+interface Program {
   next(): void
   hasNext(): boolean
   data(): string[]
   instructions(): string[]
 }
 
-export default class Program implements IProgram {
+export default class ProgramImpl implements Program {
   
   private readonly commands: string[]
 
@@ -26,15 +26,6 @@ export default class Program implements IProgram {
 
   data(): string[] {
     return this.commands
-      .map(command => {
-        const commandArguments = command.match(/(?<=\s)\S+/)
-      
-        return commandArguments !== null ? 
-          commandArguments :
-          []
-      })
-      .filter(commandArguments => commandArguments.length)
-      .flat()
   }
 
   instructions(): string[] {
