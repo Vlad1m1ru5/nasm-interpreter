@@ -48,7 +48,9 @@ export default class Program {
   }
 
   data(): string[] {
-    return this.dataStack.slice().reverse()
+    return this.dataStack
+      .slice()
+      .reverse()
   }
 
   private getCommandKeyWords(command = ''): string[] {
@@ -58,8 +60,8 @@ export default class Program {
       .filter(isWord => isWord)
 
     const isCommandWithMarker = words[0].slice(-1) === ':'
-    const instruction = isCommandWithMarker ? words[1] : words[0]
-    const data: string[] = isCommandWithMarker ? words.slice(2) : words.slice(1)
+    const instruction = words[isCommandWithMarker ? 1 : 0]
+    const data: string[] = words.slice(isCommandWithMarker ? 2 : 1)
 
     return [instruction, ...data]
   }
