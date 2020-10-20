@@ -1,15 +1,12 @@
-interface Program {
-  next(): void
-  hasNext(): boolean
-  data(): string[]
-  instructions(): string[]
-}
-
-export default class ProgramImpl implements Program {
+export default class Program {
   
   private readonly commands: string[]
+  private nextCommandNumber: number
+  private readonly dataStack: string[]
 
   constructor(commands: string[]) {
+    this.dataStack = []
+    this.nextCommandNumber = 0
     this.commands = commands
       .map(command => command.trim())
       .map(command => command.slice(0, command.indexOf('#')))
@@ -17,7 +14,33 @@ export default class ProgramImpl implements Program {
   }
 
   next(): void {
-    this.commands.pop()
+    const executingCommand = this.commands[this.nextCommandNumber]
+    const [instruction, ...data] = this.getCommandKeyWords(executingCommand)
+    const [left, right] = this.dataStack
+      .slice(-2)
+      .map(number => +number)
+
+    switch (instruction) {
+      case 'push':
+        this.dataStack.push(data[0])
+        break
+      case 'subtract':
+        this.dataStack.splice(-2)
+        this.dataStack.push((left - right).toString())
+        break
+      case 'multiply':
+        this.dataStack.splice(-2)
+        this.dataStack.push((left * right).toString())
+        break
+      case 'add':
+        this.dataStack.splice(-2)
+        this.dataStack.push((left + right).toString())
+        break
+      default:
+        break
+    }
+
+    this.nextCommandNumber++
   }
 
   hasNext(): boolean {
@@ -25,12 +48,19 @@ export default class ProgramImpl implements Program {
   }
 
   data(): string[] {
-    return this.commands
+    return this.dataStack.slice().reverse()
   }
 
-  instructions(): string[] {
-    return this.commands
-      .map(command => command.slice(0, command.indexOf(' ')))
-      .filter(isInstruction => isInstruction)
+  private getCommandKeyWords(command = ''): string[] {
+    const words = command
+      .split(' ')
+      .map(word => word.trim())
+      .filter(isWord => isWord)
+
+    const isCommandWithMarker = words[0].slice(-1) === ':'
+    const instruction = isCommandWithMarker ? words[1] : words[0]
+    const data: string[] = isCommandWithMarker ? words.slice(2) : words.slice(1)
+
+    return [instruction, ...data]
   }
 }
