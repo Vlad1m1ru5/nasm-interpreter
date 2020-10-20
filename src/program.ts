@@ -44,7 +44,7 @@ export default class Program {
   }
 
   hasNext(): boolean {
-    return !!this.commands.length
+    return this.nextCommandNumber < this.commands.length
   }
 
   data(): string[] {

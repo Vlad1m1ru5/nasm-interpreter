@@ -21,16 +21,14 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
   }, [code])
 
   const handleDoStepButtonClick = () => {
-    if (program.hasNext()) {
-      program.next()
-      setCurrentCommandNumber(currentCommandNumber + 1)
-    }
+    program.next()
+    setCurrentCommandNumber(currentCommandNumber + 1)
   }
 
   return (
     <div>
       <div>Сделано шагов: {currentCommandNumber}</div>
-      <button onClick={handleDoStepButtonClick}>Сделать шаг</button>
+      <button onClick={handleDoStepButtonClick} disabled={!program.hasNext()}>Сделать шаг</button>
       <StringList items={program.data()}/>
     </div>
   )
