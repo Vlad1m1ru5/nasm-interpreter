@@ -23,13 +23,13 @@ const App: React.FunctionComponent = () => {
   return (
     <>
       <textarea 
-        css={[textAreaCss, fontCss]} 
+        css={textAreaCss} 
         onChange={handleAsmCodeTextAreaChange} 
         placeholder='Код ассемблера...' 
       />
       <div>
-        <button css={fontCss} onClick={handleExecuteButtonClick} disabled={!asmCode.length}>Выполнить</button>
-        <button css={fontCss} onClick={handleTerminateButtonClick}>Прекратить</button>
+        <button onClick={handleExecuteButtonClick} disabled={!asmCode.length}>Выполнить</button>
+        <button onClick={handleTerminateButtonClick}>Прекратить</button>
       </div>
       {isUsingStackMachine && (
         <React.Suspense fallback='Подождите, выполняется интерпретация кода...'>
@@ -42,10 +42,6 @@ const App: React.FunctionComponent = () => {
 }
 
 export default App
-
-const fontCss = css`
-  font-size: inherit;
-`
 
 const textAreaCss = css`
   resize: none;
@@ -70,5 +66,9 @@ const globalCss = css`
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    & textarea, button {
+      font-size: inherit;
+    }
   }
 `
