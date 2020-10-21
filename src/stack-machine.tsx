@@ -27,6 +27,7 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
 
   return (
     <div>
+      <h2>Stack Machine</h2>
       <div>Сделано шагов: {currentCommandNumber}</div>
       <button onClick={handleDoStepButtonClick} disabled={!program.hasNext()}>Сделать шаг</button>
       <StringList items={program.data()}/>

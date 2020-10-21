@@ -22,6 +22,7 @@ const App: React.FunctionComponent = () => {
 
   return (
     <>
+      <h1>ASM Interpreter</h1>
       <textarea 
         css={textAreaCss} 
         onChange={handleAsmCodeTextAreaChange} 

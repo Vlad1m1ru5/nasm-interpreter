@@ -9,38 +9,88 @@ export default class Program {
     this.nextCommandNumber = 0
     this.commands = commands
       .map(command => command.trim())
-      .map(command => command.slice(0, command.indexOf('#')))
+      .map(command => {
+        const commentEntryIndex = command.indexOf('#')
+
+        const commandLength = commentEntryIndex < 0 ? 
+          command.length : 
+          commentEntryIndex
+
+        return command.slice(0, commandLength)
+      })
       .filter(isCommand => isCommand)
   }
 
   next(): void {
     const executingCommand = this.commands[this.nextCommandNumber]
     const [instruction, ...data] = this.getCommandKeyWords(executingCommand)
-    const [left, right] = this.dataStack
-      .slice(-2)
-      .map(number => +number)
 
     switch (instruction) {
-      case 'push':
+      case 'push': {
         this.dataStack.push(data[0])
+        
+        this.nextCommandNumber++
         break
-      case 'subtract':
-        this.dataStack.splice(-2)
+      }
+      case 'subtract': {
+        const [left, right] = this.dataStack
+          .splice(-2)
+          .map(number => +number)
+        
         this.dataStack.push((left - right).toString())
+        
+        this.nextCommandNumber++
         break
-      case 'multiply':
-        this.dataStack.splice(-2)
+      }
+      case 'multiply': {
+        const [left, right] = this.dataStack
+          .splice(-2)
+          .map(number => +number)
+        
         this.dataStack.push((left * right).toString())
+        
+        this.nextCommandNumber++
         break
-      case 'add':
-        this.dataStack.splice(-2)
+      }
+      case 'add': {
+        const [left, right] = this.dataStack
+          .splice(-2)
+          .map(number => +number)
+  
         this.dataStack.push((left + right).toString())
+        
+        this.nextCommandNumber++
         break
-      default:
+      }
+      case 'cmp': {
+        const [left, right] = this.dataStack
+          .splice(-2)
+          .map(number => +number)
+        
+        this.dataStack.push((left - right).toString())
+        
+        this.nextCommandNumber++
         break
-    }
+      }
+      case 'js': {
+        const [left] = this.dataStack
+          .splice(-1)
+          .map(number => +number)
 
-    this.nextCommandNumber++
+        if (left < 0) {
+          this.nextCommandNumber = this.commands
+            .findIndex(command => command.indexOf(data[0] + ':') + 1)
+
+          break
+        }
+
+        this.nextCommandNumber++
+        break
+      }
+      default: {
+        break
+      }
+    }
   }
 
   hasNext(): boolean {
