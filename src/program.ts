@@ -139,8 +139,7 @@ export default class Program {
       case 'pop': {
         this.commandsStack.push('0x0009')
 
-        this.dataStack
-          .splice(-1)
+        this.dataStack.pop()
 
         this.nextCommandNumber++
         break
@@ -165,11 +164,23 @@ export default class Program {
       case 'swp': {
         this.commandsStack.push('0x000B')
 
-        const [firstNum, secondNum] =  this.dataStack
+        const [firstNum, secondNum] = this.dataStack
           .splice(-2)
           .map(number => +number)
 
         this.dataStack.push(secondNum.toString())
+        this.dataStack.push(firstNum.toString())
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'read': {
+        this.commandsStack.push('0x000C')
+
+        const [firstNum] = this.dataStack
+          .slice(-1)
+          .map(number => +number)
+
         this.dataStack.push(firstNum.toString())
 
         this.nextCommandNumber++

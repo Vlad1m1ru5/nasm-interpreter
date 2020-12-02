@@ -27,7 +27,7 @@ npm run build
 
 ## Examples
 
-Find max value in vector
+### Find max value in vector
 
 ```sh
 push 100
@@ -42,5 +42,10 @@ delete_left: pop
 push 1
 ldc
 sub
+read
 jgt loop
+```
+
+### Sum of vectors
+
 ```

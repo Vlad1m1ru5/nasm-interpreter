@@ -21,7 +21,7 @@ const App: React.FunctionComponent = () => {
   const handleTerminateButtonClick = () => setIsInitStackMachine(false)
 
   return (
-    <>
+    <div css={appCss}>
       <h1>ASM Interpreter</h1>
       <textarea 
         css={textAreaCss} 
@@ -38,16 +38,24 @@ const App: React.FunctionComponent = () => {
         </React.Suspense>
       )}
       <Global styles={globalCss}/>
-    </>
+    </div>
   )
 }
 
 export default App
 
+const appCss = css`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`
+
 const textAreaCss = css`
   resize: none;
-  width: 50%;
-  height: 50%;
+  width: 450px;
+  height: 450px;
 `
 
 const globalCss = css`
@@ -61,15 +69,7 @@ const globalCss = css`
     height: 100vh;
   }
 
-  #app {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    & textarea, button {
-      font-size: inherit;
-    }
+  textarea, button {
+    font-size: inherit;
   }
 `
