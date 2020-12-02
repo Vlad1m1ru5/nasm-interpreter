@@ -112,7 +112,7 @@ export default class Program {
         this.nextCommandNumber++
         break
       }
-      case 'ldc': {
+      case 'stc': {
         this.commandsStack.push('0x0007')
         
         this.dataStack.push(
@@ -124,7 +124,7 @@ export default class Program {
         this.nextCommandNumber++
         break
       }
-      case 'stc': {
+      case 'ldc': {
         this.commandsStack.push('0x0008')
 
         const [firstNum] = this.dataStack

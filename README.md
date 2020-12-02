@@ -34,18 +34,20 @@ push 100
 push 10
 push 15
 push 3
-loop: stc
+loop: ldc
 cmp
 jlt delete_left
 swp
 delete_left: pop
 push 1
-ldc
+stc
 sub
 read
 jgt loop
 ```
 
 ### Sum of vectors
+
+```sh
 
 ```
