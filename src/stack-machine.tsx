@@ -1,3 +1,4 @@
+import { css } from '@emotion/core'
 import Program from 'program'
 import React, { useEffect, useState } from 'react'
 import StringList from 'component/string-list'
@@ -29,10 +30,20 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
     <div>
       <h2>Stack Machine</h2>
       <div>Сделано шагов: {currentCommandNumber}</div>
-      <button onClick={handleDoStepButtonClick} disabled={!program.hasNext()}>Сделать шаг</button>
-      <StringList items={program.data()}/>
+      <button
+        disabled={!program.hasNext()}
+        onClick={handleDoStepButtonClick}
+      >Сделать шаг</button>
+      <div css={stacksGroupCss}>
+        <StringList items={program.data()} />
+        <StringList items={program.executedCommands()} />
+      </div>
     </div>
   )
 }
 
 export default StackMachine
+
+const stacksGroupCss = css`
+  display: flex;
+`
