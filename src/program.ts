@@ -1,13 +1,15 @@
 export default class Program {
   
   private readonly commands: string[]
-  private nextCommandNumber: number
   private readonly dataStack: string[]
   private readonly commandsStack: string[]
+  private counter: number
+  private nextCommandNumber: number
 
   constructor(commands: string[]) {
     this.dataStack = []
     this.commandsStack = []
+    this.counter = 0
     this.nextCommandNumber = 0
     this.commands = commands
       .map(command => command.trim())
@@ -30,15 +32,17 @@ export default class Program {
 
     switch (instruction) {
       case 'push': {
-        this.commandsStack.push('0001')
+        this.commandsStack.push('0x0001')
+
         this.dataStack.push(data[0])
         
         this.nextCommandNumber++
         break
       }
       case 'sub': {
-        this.commandsStack.push('0010')
-        const [firstNum, secondNum] = this.dataStack
+        this.commandsStack.push('0x0002')
+
+        const [secondNum, firstNum] = this.dataStack
           .splice(-2)
           .map(number => +number)
         
@@ -48,40 +52,52 @@ export default class Program {
         break
       }
       case 'mul': {
-        this.commandsStack.push('0011')
+        this.commandsStack.push('0x0003')
+
         const [firstNum, secondNum] = this.dataStack
           .splice(-2)
           .map(number => +number)
         
-        this.dataStack.push((firstNum * secondNum).toString())
+        this.dataStack
+          .push(
+            (firstNum * secondNum).toString()
+          )
         
         this.nextCommandNumber++
         break
       }
       case 'add': {
-        this.commandsStack.push('0100')
+        this.commandsStack.push('0x0004')
+
         const [firstNum, secondNum] = this.dataStack
           .splice(-2)
           .map(number => +number)
   
-        this.dataStack.push((firstNum + secondNum).toString())
+        this.dataStack
+          .push(
+            (firstNum + secondNum).toString()
+          )
         
         this.nextCommandNumber++
         break
       }
       case 'cmp': {
-        this.commandsStack.push('0101')
-        const [firstNum, secondNum] = this.dataStack
-          .splice(-2)
+        this.commandsStack.push('0x0005')
+
+        const [secondNum, firstNum] = this.dataStack
+          .slice(-2)
           .map(number => +number)
         
-        this.dataStack.push((firstNum - secondNum).toString())
+        this.dataStack.push(
+          (firstNum - secondNum).toString()
+        )
         
         this.nextCommandNumber++
         break
       }
-      case 'js': {
-        this.commandsStack.push('0110')
+      case 'jlt': {
+        this.commandsStack.push('0x0006')
+
         const [firstNum] = this.dataStack
           .splice(-1)
           .map(number => +number)
@@ -92,6 +108,69 @@ export default class Program {
 
           break
         }
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'ldc': {
+        this.commandsStack.push('0x0007')
+        
+        this.dataStack.push(
+          this.counter.toString()
+        )
+
+        this.counter = 0
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'stc': {
+        this.commandsStack.push('0x0008')
+
+        const [firstNum] = this.dataStack
+          .splice(-1)
+          .map(number => +number)
+
+        this.counter = firstNum
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'pop': {
+        this.commandsStack.push('0x0009')
+
+        this.dataStack
+          .splice(-1)
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'jgt': {
+        this.commandsStack.push('0x000A')
+
+        const [firstNum] = this.dataStack
+          .splice(-1)
+          .map(number => +number)
+
+        if (firstNum > 0) {
+          this.nextCommandNumber = this.commands
+            .findIndex(command => command.indexOf(data[0] + ':') + 1)
+
+          break
+        }
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'swp': {
+        this.commandsStack.push('0x000B')
+
+        const [firstNum, secondNum] =  this.dataStack
+          .splice(-2)
+          .map(number => +number)
+
+        this.dataStack.push(secondNum.toString())
+        this.dataStack.push(firstNum.toString())
 
         this.nextCommandNumber++
         break

@@ -24,3 +24,23 @@ Prod build:
 ```sh
 npm run build
 ```
+
+## Examples
+
+Find max value in vector
+
+```sh
+push 100
+push 10
+push 15
+push 3
+loop: stc
+cmp
+jlt delete_left
+swp
+delete_left: pop
+push 1
+ldc
+sub
+jgt loop
+```
