@@ -12,17 +12,6 @@ export default class Program {
     this.counter = 0
     this.nextCommandNumber = 0
     this.commands = commands
-      .map(command => command.trim())
-      .map(command => {
-        const commentEntryIndex = command.indexOf('#')
-
-        const commandLength = commentEntryIndex < 0 ? 
-          command.length : 
-          commentEntryIndex
-
-        return command.slice(0, commandLength)
-      })
-      .filter(isCommand => isCommand)
   }
 
   next(): void {
@@ -58,11 +47,17 @@ export default class Program {
           .splice(-2)
           .map(number => +number)
         
-        this.dataStack
-          .push(
-            (firstNum * secondNum).toString()
-          )
-        
+        /**
+         * 65536 >> 16
+         * 1
+         */
+        const binaryResultString = (firstNum * secondNum).toString(2)
+        const greater = parseInt(binaryResultString.slice(0, 15), 2)
+        const minor = parseInt(binaryResultString.slice(16, binaryResultString.length), 2) || 0
+
+        this.dataStack.push(greater.toString())
+        this.dataStack.push((minor).toString())
+
         this.nextCommandNumber++
         break
       }
@@ -74,9 +69,7 @@ export default class Program {
           .map(number => +number)
   
         this.dataStack
-          .push(
-            (firstNum + secondNum).toString()
-          )
+          .push( (firstNum + secondNum).toString())
         
         this.nextCommandNumber++
         break
@@ -88,9 +81,7 @@ export default class Program {
           .slice(-2)
           .map(number => +number)
         
-        this.dataStack.push(
-          (firstNum - secondNum).toString()
-        )
+        this.dataStack.push((firstNum - secondNum).toString())
         
         this.nextCommandNumber++
         break
@@ -115,9 +106,7 @@ export default class Program {
       case 'stc': {
         this.commandsStack.push('0x0007')
         
-        this.dataStack.push(
-          this.counter.toString()
-        )
+        this.dataStack.push(this.counter.toString())
 
         this.counter = 0
 

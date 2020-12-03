@@ -49,5 +49,11 @@ jgt loop
 ### Sum of vectors
 
 ```sh
+push 10
+push 15
+push 5
+push 60
+push 2
+loop: ldc
 
 ```

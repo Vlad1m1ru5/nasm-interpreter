@@ -15,6 +15,16 @@ const StackMachine: React.FunctionComponent<Props> = ({ code }) => {
   useEffect(() => {
     const commands = code
       .split('\n')
+      .map(command => command.trim())
+      .map(command => {
+        const commentEntryIndex = command.indexOf('#')
+
+        const commandLength = commentEntryIndex < 0 ? 
+          command.length : 
+          commentEntryIndex
+
+        return command.slice(0, commandLength)
+      })
       .filter(isCommand => isCommand)
 
     setCurrentCommandNumber(0)
