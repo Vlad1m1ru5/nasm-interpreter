@@ -198,8 +198,8 @@ export default class Program {
           .splice(-3)
           .map(number => +number)
 
-        this.dataStack.push(firstNum.toString())
         this.dataStack.push(thirdNum.toString())
+        this.dataStack.push(firstNum.toString())
         this.dataStack.push(secondNum.toString())
 
         this.nextCommandNumber++
