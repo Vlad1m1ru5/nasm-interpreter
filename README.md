@@ -63,6 +63,6 @@ jgt loop
 js end
 loop: stc
 mul
-
+rol
 end:
 ```

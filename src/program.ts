@@ -5,10 +5,12 @@ export default class Program {
   private readonly commandsStack: string[]
   private counter: number
   private nextCommandNumber: number
+  private carry: number
 
   constructor(commands: string[]) {
     this.dataStack = []
     this.commandsStack = []
+    this.carry = 0
     this.counter = 0
     this.nextCommandNumber = 0
     this.commands = commands
@@ -55,7 +57,7 @@ export default class Program {
         const greater = parseInt(binaryResultString.slice(0, 15), 2)
         const minor = parseInt(binaryResultString.slice(16, binaryResultString.length), 2) || 0
 
-        this.dataStack.push(greater.toString())
+        this.carry = greater
         this.dataStack.push(minor.toString())
 
         this.nextCommandNumber++
@@ -171,6 +173,34 @@ export default class Program {
           .map(number => +number)
 
         this.dataStack.push(firstNum.toString())
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'rol': {
+        this.commandsStack.push('0x000D')
+
+        const [firstNum, secondNum, thirdNum] = this.dataStack
+          .splice(-3)
+          .map(number => +number)
+
+        this.dataStack.push(secondNum.toString())
+        this.dataStack.push(thirdNum.toString())        
+        this.dataStack.push(firstNum.toString())
+        
+        this.nextCommandNumber++
+        break
+      }
+      case 'ror': {
+        this.commandsStack.push('0x000E')
+
+        const [firstNum, secondNum, thirdNum] = this.dataStack
+          .splice(-3)
+          .map(number => +number)
+
+        this.dataStack.push(firstNum.toString())
+        this.dataStack.push(thirdNum.toString())
+        this.dataStack.push(secondNum.toString())
 
         this.nextCommandNumber++
         break
