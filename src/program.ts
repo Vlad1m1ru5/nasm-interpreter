@@ -56,7 +56,7 @@ export default class Program {
         const minor = parseInt(binaryResultString.slice(16, binaryResultString.length), 2) || 0
 
         this.dataStack.push(greater.toString())
-        this.dataStack.push((minor).toString())
+        this.dataStack.push(minor.toString())
 
         this.nextCommandNumber++
         break
@@ -163,7 +163,7 @@ export default class Program {
         this.nextCommandNumber++
         break
       }
-      case 'read': {
+      case 'dup': {
         this.commandsStack.push('0x000C')
 
         const [firstNum] = this.dataStack

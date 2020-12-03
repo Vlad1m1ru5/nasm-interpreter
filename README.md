@@ -42,7 +42,7 @@ delete_left: pop
 push 1
 stc
 sub
-read
+dup
 jgt loop
 ```
 
@@ -54,6 +54,15 @@ push 15
 push 5
 push 60
 push 2
-loop: ldc
+main: ldc
+push 1
+stc
+sub
+dup
+jgt loop
+js end
+loop: stc
+mul
 
+end:
 ```
