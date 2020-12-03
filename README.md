@@ -51,6 +51,8 @@ jgt loop
 ```sh
 push 10
 push 15
+push 0 # младшие биты суммы
+push 0 # старшие биты суммы
 push 5
 push 60
 push 2

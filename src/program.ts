@@ -5,12 +5,10 @@ export default class Program {
   private readonly commandsStack: string[]
   private counter: number
   private nextCommandNumber: number
-  private carry: number
 
   constructor(commands: string[]) {
     this.dataStack = []
     this.commandsStack = []
-    this.carry = 0
     this.counter = 0
     this.nextCommandNumber = 0
     this.commands = commands
@@ -57,7 +55,7 @@ export default class Program {
         const greater = parseInt(binaryResultString.slice(0, 15), 2)
         const minor = parseInt(binaryResultString.slice(16, binaryResultString.length), 2) || 0
 
-        this.carry = greater
+        this.dataStack.push(greater.toString())
         this.dataStack.push(minor.toString())
 
         this.nextCommandNumber++
