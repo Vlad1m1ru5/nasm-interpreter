@@ -32,7 +32,6 @@ module.exports = {
     alias: {
       "app": path.resolve(__dirname, `${srcRelativePath}/app`),
       "component": path.resolve(__dirname, `${srcRelativePath}/component`),
-      "program": path.resolve(__dirname, `${srcRelativePath}/program`),
       "stack-machine": path.resolve(__dirname, `${srcRelativePath}/stack-machine`)
     },
     extensions: [".ts", ".tsx", ".js", ".json", ".jsx", ".css"]

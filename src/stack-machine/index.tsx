@@ -1,5 +1,5 @@
 import { css } from '@emotion/core'
-import Program from 'program'
+import Program from 'stack-machine/program'
 import React, { useEffect, useState } from 'react'
 import StringList from 'component/string-list'
 
