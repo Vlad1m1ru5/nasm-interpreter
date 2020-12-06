@@ -34,7 +34,7 @@ The following commands are implemented.
 npm i
 ```
 
-### How to Start
+## How to Start
 
 Start app with dev server:
 
