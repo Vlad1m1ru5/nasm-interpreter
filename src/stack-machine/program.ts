@@ -219,7 +219,7 @@ export default class Program {
         this.nextCommandNumber++
         break
       }
-      case 'write': {
+      case 'write': { 
         this.commandsStack.push('0x0010')
 
         const [firstNum] = this.dataStack
@@ -233,6 +233,14 @@ export default class Program {
         this.dataStack.push(resultString)
 
         this.nextCommandNumber++
+        break
+      }
+      case 'js': {
+        this.commandsStack.push('0x0011')
+
+        this.nextCommandNumber = this.commands
+          .findIndex(command => command.indexOf(data[0] + ':') + 1)
+
         break
       }
       default: {
