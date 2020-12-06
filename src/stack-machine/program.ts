@@ -68,8 +68,7 @@ export default class Program {
           .splice(-2)
           .map(number => +number)
   
-        this.dataStack
-          .push( (firstNum + secondNum).toString())
+        this.dataStack.push((firstNum + secondNum).toString())
         
         this.nextCommandNumber++
         break
@@ -199,6 +198,39 @@ export default class Program {
         this.dataStack.push(thirdNum.toString())
         this.dataStack.push(firstNum.toString())
         this.dataStack.push(secondNum.toString())
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'adc': {
+        this.commandsStack.push('0x000F')
+
+        const [firstNum, secondNum] = this.dataStack
+          .splice(-2)
+          .map(number => +number)
+
+        const binarySumString = (firstNum + secondNum).toString(2)
+        const greater = parseInt(binarySumString.slice(0, 15), 2)
+        const minor = parseInt(binarySumString.slice(16, binarySumString.length), 2) || 0
+
+        this.dataStack.push(greater.toString())
+        this.dataStack.push(minor.toString())
+
+        this.nextCommandNumber++
+        break
+      }
+      case 'write': {
+        this.commandsStack.push('0x0010')
+
+        const [firstNum] = this.dataStack
+          .splice(-1)
+          .map(number => +number)
+        
+        console.log(firstNum)
+        const resultString = this.dataStack
+          .splice(firstNum, 1)[0]
+
+        this.dataStack.push(resultString)
 
         this.nextCommandNumber++
         break
